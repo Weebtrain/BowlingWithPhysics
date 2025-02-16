@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody))]
 public class BallController : MonoBehaviour
 {
     [SerializeField] private float force = 1f;
@@ -18,9 +19,17 @@ public class BallController : MonoBehaviour
 
         inputManager.OnSpacePressed.AddListener(LaunchBall);
 
+
+        ResetBall();
+    }
+
+    public void ResetBall()
+    {
         transform.parent = ballAnchor;
         transform.localPosition = Vector3.zero;
         ballRB.isKinematic = true;
+        isBallLaunched = false;
+        launchIndicator.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
